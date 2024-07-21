@@ -173,13 +173,13 @@
 
   .weather-icon-container {
     position: fixed;
-    top: 65vh;
-    height: 35%;
+    top: 72vh;
+    height: 25%;
     width: 110%;
   }
 
   .weather-icon-stack {
-    height: 180%;
+    height: 250%;
   }
 
   .weather-icon {
@@ -202,7 +202,7 @@
   }
 
   .weather-data-cards {
-    height: 10vh;
+    height: 9.5vh;
   }
 
   .weather-data-title {
@@ -212,7 +212,7 @@
 
   .weather-data-text {
     text-align: center;
-    margin-top: 35px;
+    margin-top: 1.5vh;
     font-size: 20px;
     font-weight: 700;
   }
