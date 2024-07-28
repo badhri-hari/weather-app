@@ -35,7 +35,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.3.1"
   },
-  "description": "Weather App: An application that allows users to find the current weather data at a location. Features include location search, current weather data display, weather icons, and responsive design, with error messages for informing the users about any errors.",
+  "description": "Application that allows users to find the current weather data at a location. Features include location search, current weather data display, weather icons, and responsive design, with error messages for informing the users about any errors.",
   "main": "main.tsx",
   "keywords": [],
   "author": "Badhri N Hari",
