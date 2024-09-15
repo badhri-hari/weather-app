@@ -37,7 +37,7 @@ This project is an interactive web application designed to allow users to enter 
 
 ## Usage Instructions
 
-1. Open the application in a web browser.
+1. Access the application in a web browser through the **localhost:5173** URL.
 2. Input the name of a location in the location input field.
 3. View the current weather data for that location.
 
@@ -51,4 +51,4 @@ This project provided practical experience in front-end web development, particu
 
 ## Contact Information
 
-For any inquiries or further information, please contact me. **Email** : [badhrihari123@gmail.com](mailto:badhrihari123@gmail.com "Email Me!")
+For any inquiries or further information, please contact me at [badhrihari123@gmail.com](mailto:badhrihari123@gmail.com "Email Me!").
