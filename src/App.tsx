@@ -41,7 +41,8 @@ export default function App() {
       });
       setWeatherData(response.data); // Store the server response.
     } catch (error: unknown) {
-      if (error instanceof Error) {
+      // Check if error is an Axios error
+      if (axios.isAxiosError(error)) {
         if (error.response) {
           // Server responded with a status other than 2xx
           if (error.response.status === 404) {
@@ -58,6 +59,8 @@ export default function App() {
           // Something else happened
           setError("An unexpected error occurred. Please try again.");
         }
+      } else {
+        setError("An unknown error occurred.");
       }
     } finally {
       setLoading(false); // Stop the loading sequence.
