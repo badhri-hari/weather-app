@@ -3,61 +3,70 @@ import { useState, useEffect } from "react";
 import { Stack, VStack, Center } from "@chakra-ui/react";
 import axios from "axios";
 
-export default function App() {
-  // Used to store certain variables whose values can dynamically change.
-  const [placeName, setPlaceName] = useState("");
-  const [tempPlaceName, setTempPlaceName] = useState("");
-  const [submitDisabled, setSubmitDisabled] = useState(true);
-  const [weatherData, setWeatherData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+// Define the shape of the weather data response.
+interface WeatherData {
+  description: string;
+  icon: string;
+  temperature: number;
+  precipitation?: number;
+  humidity: number;
+  wind_speed: number;
+}
 
-  // User cannot submit location input field if there are no characters.
+export default function App() {
+  // State variables to store dynamic values.
+  const [placeName, setPlaceName] = useState<string>("");
+  const [tempPlaceName, setTempPlaceName] = useState<string>("");
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Disable submit button if input is empty.
   useEffect(() => {
     setSubmitDisabled(tempPlaceName.trim() === "");
   }, [tempPlaceName]);
 
-  // Sends the name of the place to the server for the weather data.
-  const handlePlaceNameSubmit = async (e) => {
-    e.preventDefault(); // Prevents default form submission behavior.
-    setPlaceName(tempPlaceName); // Name of the place.
+  // Handle form submission to fetch weather data.
+  const handlePlaceNameSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent default form submission behavior.
+    setPlaceName(tempPlaceName); // Set the place name for display.
     setLoading(true); // Start the loading sequence.
-    setError(null); // No errors (yet?)
+    setError(null); // Clear any previous errors.
 
     try {
       const response = await axios.post("/api/weather", {
         // Send place name to the serverless function.
         placeName: tempPlaceName,
       });
-      setWeatherData(response.data); // Server response is stored.
-    } catch (error) {
-      // If there is an error.
-      if (error.response) {
-        // Server responded with a status other than 2xx
-        if (error.response.status === 404) {
-          setError("Location not found. Please enter a valid place name.");
+      setWeatherData(response.data); // Store the server response.
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.response) {
+          // Server responded with a status other than 2xx
+          if (error.response.status === 404) {
+            setError("Location not found. Please enter a valid place name.");
+          } else {
+            setError("Error fetching weather data from the server.");
+          }
+        } else if (error.request) {
+          // Request was made but no response received
+          setError(
+            "Unable to connect to the server. Check your internet connection."
+          );
         } else {
-          setError("Error fetching weather data from the server.");
+          // Something else happened
+          setError("An unexpected error occurred. Please try again.");
         }
-      } else if (error.request) {
-        // Request was made but no response received
-        setError(
-          "Unable to connect to the server. Check your internet connection."
-        );
-      } else {
-        // Something else happened
-        setError("An unexpected error occurred. Please try again.");
       }
     } finally {
-      // After receiving (or not receiving) data from server:
-      setLoading(false); // Loading sequence stopped.
+      setLoading(false); // Stop the loading sequence.
     }
   };
 
   return (
     <>
-      {!placeName && ( // Only shows when placeName not yet inputted by user.
-        // Form for place name submission.
+      {!placeName && ( // Show form for place name submission if not yet inputted.
         <form className="input-container" onSubmit={handlePlaceNameSubmit}>
           <div className="input-fields-container">
             <div className="input-container-head">Enter Place Name</div>
@@ -74,13 +83,13 @@ export default function App() {
                 submitDisabled ? "disabled" : "submit"
               }`}
               value="Submit"
-              disabled={submitDisabled} // User cannot submit until they have entered the place name.
+              disabled={submitDisabled} // Disable submit until a place name is entered.
             />
           </div>
         </form>
       )}
 
-      {loading && ( // Loading sequence.
+      {loading && ( // Show loading state.
         <div className="input-container">
           <div className="input-fields-container">
             <div className="input-container-head">Loading...</div>
@@ -88,7 +97,7 @@ export default function App() {
         </div>
       )}
 
-      {error && ( // Error message.
+      {error && ( // Show error message if there is an error.
         <div className="input-container">
           <div className="input-fields-container">
             <div className="input-container-head">{error}</div>
@@ -97,7 +106,7 @@ export default function App() {
       )}
 
       {placeName &&
-        weatherData && ( // When place name and weather data are defined.
+        weatherData && ( // Show weather data when available.
           <Stack
             direction={["column", "row"]}
             spacing="24px"
