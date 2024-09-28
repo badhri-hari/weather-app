@@ -25,8 +25,8 @@ export default function App() {
     setError(null); // No errors (yet?)
 
     try {
-      const response = await axios.post("http://localhost:5000/weather", {
-        // Send place name to the server.
+      const response = await axios.post("/api/weather", {
+        // Send place name to the serverless function.
         placeName: tempPlaceName,
       });
       setWeatherData(response.data); // Server response is stored.
@@ -49,7 +49,7 @@ export default function App() {
         setError("An unexpected error occurred. Please try again.");
       }
     } finally {
-      // After receving (or not receiving) data from server:
+      // After receiving (or not receiving) data from server:
       setLoading(false); // Loading sequence stopped.
     }
   };
@@ -96,55 +96,58 @@ export default function App() {
         </div>
       )}
 
-      {placeName && weatherData && ( // When place name and weather data are defined.
-        <Stack
-          direction={["column", "row"]}
-          spacing="24px"
-          className="main-container"
-        >
-          <Center className="weather-icon-container">
-            <VStack className="weather-icon-stack">
-              <img
-                className="weather-icon"
-                alt={weatherData.description}
-                src={`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`} 
-                // Displays appropriate icon for each weather condition.
-              />
-              <div className="weather-icon-text">{weatherData.description}</div>
-            </VStack>
-          </Center>
+      {placeName &&
+        weatherData && ( // When place name and weather data are defined.
+          <Stack
+            direction={["column", "row"]}
+            spacing="24px"
+            className="main-container"
+          >
+            <Center className="weather-icon-container">
+              <VStack className="weather-icon-stack">
+                <img
+                  className="weather-icon"
+                  alt={weatherData.description}
+                  src={`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`}
+                  // Displays appropriate icon for each weather condition.
+                />
+                <div className="weather-icon-text">
+                  {weatherData.description}
+                </div>
+              </VStack>
+            </Center>
 
-          {/* Weather data cards below:  */}
-          <VStack spacing="30px" className="weather-data">  
-            <div className="title">
-              Weather for{" "}
-              <span style={{ fontWeight: "bolder" }}>{placeName}</span>
-            </div>
-            <div className="weather-data-cards">
-              <div className="weather-data-title">Temperature</div>
-              <div className="weather-data-text">
-                {weatherData.temperature}°C
+            {/* Weather data cards below:  */}
+            <VStack spacing="30px" className="weather-data">
+              <div className="title">
+                Weather for{" "}
+                <span style={{ fontWeight: "bolder" }}>{placeName}</span>
               </div>
-            </div>
-            <div className="weather-data-cards">
-              <div className="weather-data-title">Precipitation</div>
-              <div className="weather-data-text">
-                {weatherData.precipitation ? weatherData.precipitation : "0"}%
+              <div className="weather-data-cards">
+                <div className="weather-data-title">Temperature</div>
+                <div className="weather-data-text">
+                  {weatherData.temperature}°C
+                </div>
               </div>
-            </div>
-            <div className="weather-data-cards">
-              <div className="weather-data-title">Humidity</div>
-              <div className="weather-data-text">{weatherData.humidity}%</div>
-            </div>
-            <div className="weather-data-cards">
-              <div className="weather-data-title">Wind</div>
-              <div className="weather-data-text">
-                {weatherData.wind_speed} m/s
+              <div className="weather-data-cards">
+                <div className="weather-data-title">Precipitation</div>
+                <div className="weather-data-text">
+                  {weatherData.precipitation ? weatherData.precipitation : "0"}%
+                </div>
               </div>
-            </div>
-          </VStack>
-        </Stack>
-      )}
+              <div className="weather-data-cards">
+                <div className="weather-data-title">Humidity</div>
+                <div className="weather-data-text">{weatherData.humidity}%</div>
+              </div>
+              <div className="weather-data-cards">
+                <div className="weather-data-title">Wind</div>
+                <div className="weather-data-text">
+                  {weatherData.wind_speed} m/s
+                </div>
+              </div>
+            </VStack>
+          </Stack>
+        )}
     </>
   );
 }
