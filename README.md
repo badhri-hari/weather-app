@@ -4,6 +4,8 @@
 
 This project is an interactive web application designed to allow users to enter a location and retrieve the current weather conditions for that location. The app displays details such as temperature, precipitation, wind speed, weather description, an icon, and more. The application uses [OpenWeatherMap&#39;s](https://openweathermap.org/ "Go to their website.") free API calls for the weather data (specifically the geocoding and weather APIs).
 
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+
 ## Key Features
 
 * **Location Input**: Users can enter the name of a city or location in a text input field for which they want to check the weather.
