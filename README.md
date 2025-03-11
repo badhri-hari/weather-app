@@ -1,6 +1,8 @@
-# Weather App
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6289fae3-4819-4784-a1f5-fb7ddc69d22c" alt="project logo" height="150" width="300">
+</p>
 
-## Project Overview
+# Weather App
 
 This project is an interactive web application designed to allow users to enter a location and retrieve the current weather conditions for that location. The app displays details such as temperature, precipitation, wind speed, weather description, an icon, and more. The application uses [OpenWeatherMap&#39;s](https://openweathermap.org/ "Go to their website.") free API calls for the weather data (specifically the geocoding and weather APIs).
 
@@ -32,10 +34,9 @@ This project is an interactive web application designed to allow users to enter 
 ## Setup Instructions
 
 1. Clone the repository from GitHub.
-2. Run `npm install` in the terminal while in the main directory.
-3. Run `npm run dev` in the terminal while in the main directory.
-4. Navigate to **localhost:5173** in a browser.
-5. Ensure you have an active internet connection for accessing the OpenWeatherMap API.
+2. Run `npm install` and then `npm run dev` in the terminal while in the root.
+3. Navigate to **localhost:5173** in a browser.
+4. Ensure you have an active internet connection for accessing the OpenWeatherMap API.
 
 ## Usage Instructions
 
